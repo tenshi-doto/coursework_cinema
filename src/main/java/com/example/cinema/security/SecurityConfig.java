@@ -29,7 +29,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/login", "/register/**", "/sessions/**")
+                .requestMatchers("/login", "/register/**", "/sessions/**",
+                        "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html",
+                        "/api/**")
                 .permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin(form -> form
@@ -45,6 +47,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Autowired
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
